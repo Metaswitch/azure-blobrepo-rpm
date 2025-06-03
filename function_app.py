@@ -31,7 +31,7 @@ REPO_TYPE = os.environ.get("REPO_TYPE", "distribution")
 
 @app.function_name(name="eventGridTrigger")
 @app.event_grid_trigger(arg_name="event")
-def event_grid_trigger(event: func.EventGridEvent):
+def event_grid_trigger(event: func.EventGridEvent) -> None:
     """Process an event grid trigger for a new blob in the container."""
     log.info("Processing event %s", event.id)
 

@@ -35,7 +35,7 @@ class AzureBaseRepository(BaseRepository):
         self,
         container_client: ContainerClient,
         organiser: Union[AzureDistributionOrganiser, AzureFlatOrganiser],
-    ):
+    ) -> None:
         """Create an AzureDistributionRepository object."""
         self.container_client = container_client
         self.organiser = organiser
@@ -336,7 +336,7 @@ class AzureDistributionRepository(AzureBaseRepository):
 
     def __init__(
         self, container_client: ContainerClient, upload_directory: str = "upload"
-    ):
+    ) -> None:
         """Create an AzureDistributionRepository object."""
         organiser = AzureDistributionOrganiser(
             container_client, Path("."), upload_directory=upload_directory
@@ -352,7 +352,7 @@ class AzureFlatRepository(AzureBaseRepository):
 
     def __init__(
         self, container_client: ContainerClient, upload_directory: str = "upload"
-    ):
+    ) -> None:
         """Create an AzureFlatRepository object."""
         organiser = AzureFlatOrganiser(
             container_client, Path("."), upload_directory=upload_directory
