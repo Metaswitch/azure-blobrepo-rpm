@@ -5,10 +5,11 @@
 import contextlib
 import os
 import tempfile
+from typing import Generator
 
 
 @contextlib.contextmanager
-def temporary_filename():
+def temporary_filename() -> Generator[str, None, None]:
     """Create a temporary file and return the filename."""
     try:
         with tempfile.NamedTemporaryFile(delete=False) as f:

@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 """Tests for the RPM package function."""
 
-
 import logging
 import os
 from pathlib import Path
@@ -130,7 +129,7 @@ def test_flat_organiser(rpm_packages: List[Path]) -> None:
     ],
     indirect=True,
 )
-def test_list_packages(repository) -> None:
+def test_list_packages(repository) -> None:  # noqa: ANN001
     """Test that the organiser can find packages."""
 
     organiser = DistributionOrganiser(repository)
@@ -212,7 +211,7 @@ def live_clean_metadata(container_client: ContainerClient, metadata: Path) -> No
     ],
     indirect=True,
 )
-def test_live_organiser(rpm_packages) -> None:
+def test_live_organiser(rpm_packages) -> None:  # noqa: ANN001
     """Test that the AzureDistributionOrganiser can find packages."""
     rpm_package = rpm_packages[0]
     credential = DefaultAzureCredential()
@@ -274,7 +273,7 @@ def test_live_organiser(rpm_packages) -> None:
     ],
     indirect=True,
 )
-def test_live_repository(rpm_packages) -> None:
+def test_live_repository(rpm_packages) -> None:  # noqa: ANN001
     """Test that the AzureDistributionRepository works."""
     credential = DefaultAzureCredential()
     container_client = ContainerClient.from_container_url(
@@ -335,7 +334,7 @@ def test_live_repository(rpm_packages) -> None:
     ],
     indirect=True,
 )
-def test_live_flat_repository(rpm_packages) -> None:
+def test_live_flat_repository(rpm_packages) -> None:  # noqa: ANN001
     """Test that the AzureFlatRepository works."""
     credential = DefaultAzureCredential()
     container_client = ContainerClient.from_container_url(

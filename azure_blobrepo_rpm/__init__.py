@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 """A function app to manage an RPM repository in Azure Blob Storage."""
 
-
 from .organiser import (
     AzureDistributionOrganiser,
     AzureFlatOrganiser,
