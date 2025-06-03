@@ -13,7 +13,7 @@ azure-identity = "^1.19.0"
 azure-storage-blob = "^12.24.0"
 createrepo-c = "^1.2.0"
 rpmfile = "^2.1.0"
-zstandard = "^0.22.0"
+zstandard = "^0.23.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.13.0"
