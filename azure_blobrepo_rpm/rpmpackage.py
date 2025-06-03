@@ -93,7 +93,7 @@ class BaseRpmPackage:
 class LocalRpmPackage(BaseRpmPackage):
     """A class to extract RPM package information from a package file."""
 
-    def __init__(self, path: Path):
+    def __init__(self, path: Path) -> None:
         """Create a new LocalRpmPackage object."""
         self.path = path
 
@@ -136,7 +136,7 @@ class LocalRpmPackage(BaseRpmPackage):
         self.path = new_path
         log.debug("Package moved from %s to %s", old_path, new_path)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return a string representation of the package."""
         return (
             f"{self.__class__.__name__}(name: {self.name()}; "
@@ -147,17 +147,17 @@ class LocalRpmPackage(BaseRpmPackage):
 class RemoteRpmPackage(BaseRpmPackage):
     """A class to extract RPM package information from a remote package file."""
 
-    def __init__(self, path: Path, container_client: ContainerClient):
+    def __init__(self, path: Path, container_client: ContainerClient) -> None:
         """Create a new RemoteRpmPackage object."""
         self.path = path
         self.container_client = container_client
         self.local_package: Optional[LocalRpmPackage] = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """Return a string representation of the package."""
         return f"{self.__class__.__name__}({self.path!r}, {self.container_client!r})"
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return a string representation of the package."""
         return f"{self.__class__.__name__}({self.path})"
 

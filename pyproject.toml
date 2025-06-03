@@ -1,40 +1,33 @@
-[tool.poetry]
+[project]
 name = "azure-blobrepo-rpm"
-version = "0.1.0"
 description = "Functionality to create an RPM package repository in Azure Blob Storage"
-authors = ["Max Dymond <max.dymond@microsoft.com>"]
 license = "MIT"
+version = "0.1.0"
 readme = "README.md"
+authors = [{name = "Max Dymond", email = "max.dymond@alianza.com"}]
+requires-python = '>=3.9,<4.0'
+dependencies = ['azure-functions (>=1.21.3,<2.0.0)', 'azure-identity (>=1.19.0,<2.0.0)', 'azure-storage-blob (>=12.24.0,<13.0.0)', 'createrepo-c (>=1.2.1,<2.0.0)', 'rpmfile (>=2.1.0,<3.0.0)', 'zstandard (>=0.23.0,<0.24.0)']
+
+[project.scripts]
+create-resources = "azure_blobrepo_rpm.tooling.create_resources:run"
+
+[tool.poetry]
+requires-poetry = '>=2.0'
 
 [tool.poetry.dependencies]
 python = "^3.9"
-azure-functions = "^1.21.3"
-azure-identity = "^1.19.0"
-azure-storage-blob = "^12.24.0"
-createrepo-c = "^1.2.0"
-rpmfile = "^2.1.0"
-zstandard = "^0.22.0"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "^1.13.0"
-flake8 = "^7.1.1"
-flake8-black = "^0.3.6"
-flake8-isort = "^6.1.1"
-flake8-docstrings = "^1.7.0"
-black = "^24.10.0"
-pytest = "^8.3.4"
-pylint = "^3.3.3"
+ruff = "^0.11.12"
+pytest = "^8.4.0"
 
 [build-system]
-requires = ["poetry-core"]
+requires = ['poetry-core (>=2.0)']
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry.scripts]
-# Script to create resources in Azure
-create-resources = "azure_blobrepo_rpm.tooling.create_resources:run"
-
-[tool.isort]
-profile = "black"
+[tool.mypy]
+files = ["function_app.py", "azure_blobrepo_rpm", "tests"]
 
 [[tool.mypy.overrides]]
 module = ["rpmfile.*", "createrepo_c.*"]

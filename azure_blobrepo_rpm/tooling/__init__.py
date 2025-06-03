@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 """Tooling for creating rpm repositories in Azure."""
 
-
 import logging
 import sys
 from datetime import datetime
