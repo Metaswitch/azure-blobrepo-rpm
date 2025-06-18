@@ -9,7 +9,7 @@ def advice_distribution_repo(
     storage_account: str,
     function_app_name: str,
     base_url: str,
-):
+) -> None:
     """Print advice for a distribution repository."""
     print(
         f"""The repository has been created!
@@ -75,7 +75,7 @@ def advice_flat_repo(
     storage_account: str,
     function_app_name: str,
     base_url: str,
-):
+) -> None:
     """Print advice for a flat repository."""
     print(
         f"""The repository has been created!

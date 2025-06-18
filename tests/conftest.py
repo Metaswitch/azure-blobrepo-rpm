@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 """Fixtures for the RPM package function tests."""
 
-
 import logging
 import subprocess
 import tempfile
@@ -45,7 +44,7 @@ def create_rpm_in_dir(directory: Path, name: str, version: str, release: str) ->
 
 
 @pytest.fixture(name="rpm_packages", scope="function")
-def fixture_rpm_packages(request) -> Generator[List[Path], None, None]:
+def fixture_rpm_packages(request) -> Generator[List[Path], None, None]:  # noqa: ANN001
     """Create a test RPM package."""
     # Unpack the parameters
     config: List[Dict[str, Any]] = request.param
@@ -68,7 +67,7 @@ def fixture_rpm_packages(request) -> Generator[List[Path], None, None]:
 
 
 @pytest.fixture(name="repository", scope="function")
-def fixture_repository(request) -> Generator[Path, None, None]:
+def fixture_repository(request) -> Generator[Path, None, None]:  # noqa: ANN001
     """Create a test repository."""
     # Unpack the parameters
 

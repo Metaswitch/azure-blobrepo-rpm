@@ -2,7 +2,6 @@
 # Licensed under the MIT License.
 """Classes to organise RPM packages."""
 
-
 import logging
 import re
 from pathlib import Path
@@ -39,7 +38,7 @@ class BaseOrganiser:
 class LocalOrganiserMixin:
     """Mixin class for local organisation of RPM packages."""
 
-    def __init__(self, root: Path, upload_directory: str = "upload"):
+    def __init__(self, root: Path, upload_directory: str = "upload") -> None:
         """Create a new DistributionOrganiser."""
         self.root = root
         self.upload_directory = self.root / upload_directory
@@ -72,7 +71,7 @@ class AzureOrganiserMixin:
         container_client: ContainerClient,
         root: Path,
         upload_directory: str = "upload",
-    ):
+    ) -> None:
         """Create a new AzureDistributionOrganiser."""
         self.container_client = container_client
         self.root = root
