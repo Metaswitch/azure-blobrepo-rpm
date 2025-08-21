@@ -6,7 +6,7 @@ version = "0.1.0"
 readme = "README.md"
 authors = [{name = "Max Dymond", email = "max.dymond@alianza.com"}]
 requires-python = '>=3.9,<4.0'
-dependencies = ['azure-functions (>=1.21.3,<2.0.0)', 'azure-identity (>=1.19.0,<2.0.0)', 'azure-storage-blob (>=12.24.0,<13.0.0)', 'createrepo-c (>=1.2.1,<2.0.0)', 'rpmfile (>=2.1.0,<3.0.0)', 'zstandard (>=0.23.0,<0.24.0)']
+dependencies = ['azure-functions (>=1.21.3,<2.0.0)', 'azure-identity (>=1.19.0,<2.0.0)', 'azure-storage-blob (>=12.24.0,<13.0.0)', 'createrepo-c (>=1.2.1,<2.0.0)', 'rpmfile (>=2.1.0,<3.0.0)', 'zstandard (>=0.24.0,<0.25.0)']
 
 [project.scripts]
 create-resources = "azure_blobrepo_rpm.tooling.create_resources:run"
