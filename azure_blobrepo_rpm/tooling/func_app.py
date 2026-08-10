@@ -9,7 +9,7 @@ import time
 from pathlib import Path
 from subprocess import CalledProcessError
 from types import TracebackType
-from typing import Any, Dict, Optional, Type
+from typing import Any, Self
 
 from azure_blobrepo_rpm.tooling.azcmd import AzCmdJson, AzCmdNone
 from azure_blobrepo_rpm.tooling.bicep_deployment import BicepDeployment
@@ -62,15 +62,15 @@ class FuncApp:
 
             time.sleep(5)
 
-    def __enter__(self) -> "FuncApp":
+    def __enter__(self) -> Self:
         """Return the object for use in a context manager."""
         return self
 
     def __exit__(
         self,
-        _exc_type: Optional[Type[BaseException]],
-        _exc_value: Optional[BaseException],
-        _exc_traceback: Optional[TracebackType],
+        _exc_type: type[BaseException] | None,
+        _exc_value: BaseException | None,
+        _exc_traceback: TracebackType | None,
     ) -> None:
         """Clean up the object."""
         if self.output_path.exists():
@@ -92,7 +92,7 @@ class FuncAppBundle(FuncApp):
         resource_group: str,
         storage_account: str,
         python_container: str,
-        parameters: Dict[str, Any],
+        parameters: dict[str, Any],
     ) -> None:
         """Create a FuncAppBundle object."""
         # The function app bundle gets created as function_app.zip

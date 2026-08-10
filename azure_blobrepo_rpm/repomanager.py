@@ -6,7 +6,6 @@ import logging
 import tarfile
 import tempfile
 from pathlib import Path
-from typing import List, Optional, Set, Union
 
 import createrepo_c
 from azure.storage.blob import ContainerClient
@@ -34,7 +33,7 @@ class AzureBaseRepository(BaseRepository):
     def __init__(
         self,
         container_client: ContainerClient,
-        organiser: Union[AzureDistributionOrganiser, AzureFlatOrganiser],
+        organiser: AzureDistributionOrganiser | AzureFlatOrganiser,
     ) -> None:
         """Create an AzureDistributionRepository object."""
         self.container_client = container_client
@@ -75,7 +74,7 @@ class AzureBaseRepository(BaseRepository):
 
         return False
 
-    def list_all_packages(self) -> List[RemoteRpmPackage]:
+    def list_all_packages(self) -> list[RemoteRpmPackage]:
         """List all packages in the repository."""
         blobs = self.container_client.list_blobs()
 
@@ -95,11 +94,11 @@ class AzureBaseRepository(BaseRepository):
         log.debug("Packages: %s", packages)
         return packages
 
-    def list_all_package_paths(self) -> Set[Path]:
+    def list_all_package_paths(self) -> set[Path]:
         """List all package parents in the repository."""
         blobs = self.container_client.list_blobs()
 
-        paths: Set[Path] = set()
+        paths: set[Path] = set()
 
         for blob in blobs:
             blob_path = Path(blob.name)
@@ -221,7 +220,7 @@ class AzureBaseRepository(BaseRepository):
 
             # Find all the metadata files under the given path
             # If the path is empty, we want to list all the blobs in the container
-            prefix: Optional[str]
+            prefix: str | None
             if path.parts:
                 prefix = str(path)
             else:
@@ -296,17 +295,17 @@ class AzureBaseRepository(BaseRepository):
             # Work out the set of remote metadata files that already exist.
             target_repodata = path / "repodata"
 
-            existing_remote_metadata = set(
+            existing_remote_metadata = {
                 Path(blob.name).name
                 for blob in self.container_client.list_blobs(
                     name_starts_with=str(target_repodata)
                 )
-            )
+            }
             log.debug(
                 "There are %d existing metadata files", len(existing_remote_metadata)
             )
 
-            new_metadata = set(metadata.name for metadata in output_repodata.iterdir())
+            new_metadata = {metadata.name for metadata in output_repodata.iterdir()}
 
             to_delete = existing_remote_metadata - new_metadata
             log.debug("There are %d metadata files to delete", len(to_delete))

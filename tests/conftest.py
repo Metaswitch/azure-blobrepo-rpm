@@ -5,8 +5,9 @@
 import logging
 import subprocess
 import tempfile
+from collections.abc import Generator
 from pathlib import Path
-from typing import Any, Dict, Generator, List
+from typing import Any
 
 import pytest
 
@@ -44,10 +45,10 @@ def create_rpm_in_dir(directory: Path, name: str, version: str, release: str) ->
 
 
 @pytest.fixture(name="rpm_packages", scope="function")
-def fixture_rpm_packages(request) -> Generator[List[Path], None, None]:  # noqa: ANN001
+def fixture_rpm_packages(request) -> Generator[list[Path]]:  # noqa: ANN001
     """Create a test RPM package."""
     # Unpack the parameters
-    config: List[Dict[str, Any]] = request.param
+    config: list[dict[str, Any]] = request.param
 
     with tempfile.TemporaryDirectory() as temp_dir:
         packages = []
@@ -67,11 +68,11 @@ def fixture_rpm_packages(request) -> Generator[List[Path], None, None]:  # noqa:
 
 
 @pytest.fixture(name="repository", scope="function")
-def fixture_repository(request) -> Generator[Path, None, None]:  # noqa: ANN001
+def fixture_repository(request) -> Generator[Path]:  # noqa: ANN001
     """Create a test repository."""
     # Unpack the parameters
 
-    config: Dict[str, Any] = request.param
+    config: dict[str, Any] = request.param
 
     upload_directory = str(config["upload_directory"])
     upload_packages = config.get("upload_packages", [])

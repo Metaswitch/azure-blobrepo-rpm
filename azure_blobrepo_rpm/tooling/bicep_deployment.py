@@ -4,7 +4,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from azure_blobrepo_rpm.tooling.azcmd import AzCmdJson, AzCmdNone
 
@@ -20,7 +20,7 @@ class BicepDeployment:
         deployment_name: str,
         resource_group_name: str,
         template_file: Path,
-        parameters: Dict[str, Any],
+        parameters: dict[str, Any],
         description: str,
     ) -> None:
         """Create a BicepDeployment object."""
@@ -59,7 +59,7 @@ class BicepDeployment:
         cmd.run()
         log.info("Finished deploying %s", self.description)
 
-    def outputs(self) -> Dict[str, Any]:
+    def outputs(self) -> dict[str, Any]:
         """Get the outputs of the deployment."""
         cmd = AzCmdJson(
             [

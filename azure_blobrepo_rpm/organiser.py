@@ -4,8 +4,8 @@
 
 import logging
 import re
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, List
 
 from azure.storage.blob import ContainerClient
 
@@ -26,7 +26,7 @@ class BaseOrganiser:
         """Get the relative path of the package under this organiser."""
         raise NotImplementedError
 
-    def list_uploads(self) -> List[BaseRpmPackage]:
+    def list_uploads(self) -> list[BaseRpmPackage]:
         """List uploaded packages."""
         raise NotImplementedError
 
@@ -43,7 +43,7 @@ class LocalOrganiserMixin:
         self.root = root
         self.upload_directory = self.root / upload_directory
 
-    def list_uploads(self) -> List[BaseRpmPackage]:
+    def list_uploads(self) -> list[BaseRpmPackage]:
         """List the uploaded packages."""
         packages: list[BaseRpmPackage] = [
             LocalRpmPackage(path) for path in self.upload_directory.glob("*.rpm")
@@ -77,7 +77,7 @@ class AzureOrganiserMixin:
         self.root = root
         self.upload_directory = self.root / upload_directory
 
-    def list_uploads(self) -> List[BaseRpmPackage]:
+    def list_uploads(self) -> list[BaseRpmPackage]:
         """List the uploaded packages."""
         # List the blobs in the container prefixed with the upload directory
         blobs = self.container_client.list_blobs(

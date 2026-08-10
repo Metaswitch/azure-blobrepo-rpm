@@ -8,7 +8,6 @@ import shutil
 import tempfile
 from collections import namedtuple
 from pathlib import Path
-from typing import Optional
 
 import rpmfile
 from azure.storage.blob import BlobClient, ContainerClient
@@ -31,7 +30,7 @@ class BaseRpmPackage:
         """Get the version of the package."""
         raise NotImplementedError
 
-    def dist(self) -> Optional[str]:
+    def dist(self) -> str | None:
         """Get the distribution of the package."""
         raise NotImplementedError
 
@@ -76,7 +75,7 @@ class BaseRpmPackage:
             # which is a number after a dot. We should also handle that.
             pattern = r"^\d+\.([^\.]+)"
 
-            dist: Optional[str]
+            dist: str | None
 
             if m := re.match(pattern, release):
                 dist = m.group(1)
@@ -112,7 +111,7 @@ class LocalRpmPackage(BaseRpmPackage):
         """Get the version of the package."""
         return self._version
 
-    def dist(self) -> Optional[str]:
+    def dist(self) -> str | None:
         """Get the distribution of the package."""
         return self._dist
 
@@ -151,7 +150,7 @@ class RemoteRpmPackage(BaseRpmPackage):
         """Create a new RemoteRpmPackage object."""
         self.path = path
         self.container_client = container_client
-        self.local_package: Optional[LocalRpmPackage] = None
+        self.local_package: LocalRpmPackage | None = None
 
     def __repr__(self) -> str:
         """Return a string representation of the package."""
@@ -191,7 +190,7 @@ class RemoteRpmPackage(BaseRpmPackage):
         """Get the version of the package."""
         return self._get_package().version()
 
-    def dist(self) -> Optional[str]:
+    def dist(self) -> str | None:
         """Get the distribution of the package."""
         return self._get_package().dist()
 
