@@ -5,7 +5,6 @@
 import logging
 import os
 from pathlib import Path
-from typing import List, Union
 
 import pytest
 from azure.identity import DefaultAzureCredential
@@ -57,7 +56,7 @@ TEST_DIR = Path(__file__).parent
     ],
     indirect=True,
 )
-def test_various_packages(rpm_packages: List[Path]) -> None:
+def test_various_packages(rpm_packages: list[Path]) -> None:
     """Test that LocalRpmPackage can handle different things being thrown at it."""
     for rpm_package in rpm_packages:
         LocalRpmPackage(rpm_package)
@@ -76,7 +75,7 @@ def test_various_packages(rpm_packages: List[Path]) -> None:
     ],
     indirect=True,
 )
-def test_organiser(rpm_packages: List[Path]) -> None:
+def test_organiser(rpm_packages: list[Path]) -> None:
     """Test that the organiser returns the correct path for a package."""
     rpm_package = rpm_packages[0]
     package = LocalRpmPackage(rpm_package)
@@ -101,7 +100,7 @@ def test_organiser(rpm_packages: List[Path]) -> None:
     ],
     indirect=True,
 )
-def test_flat_organiser(rpm_packages: List[Path]) -> None:
+def test_flat_organiser(rpm_packages: list[Path]) -> None:
     """Test that the organiser organiser returns the correct path for a package."""
     rpm_package = rpm_packages[0]
     package = LocalRpmPackage(rpm_package)
@@ -143,7 +142,7 @@ def test_list_packages(repository) -> None:  # noqa: ANN001
 
 def live_clean_package(
     package: Path,
-    organiser: Union[AzureDistributionOrganiser, AzureFlatOrganiser],
+    organiser: AzureDistributionOrganiser | AzureFlatOrganiser,
     assert_exists: bool = False,
 ) -> None:
     """Clean up an existing package."""
@@ -171,7 +170,7 @@ def live_clean_package(
 
 def live_clean_and_upload_package(
     package: Path,
-    organiser: Union[AzureDistributionOrganiser, AzureFlatOrganiser],
+    organiser: AzureDistributionOrganiser | AzureFlatOrganiser,
     upload_directory: str = "upload",
 ) -> None:
     """Clean up any existing packages and upload a package to the container."""

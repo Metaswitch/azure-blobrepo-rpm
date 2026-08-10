@@ -34,7 +34,7 @@ var package_container_name = 'packages'
 var python_container_name = 'python'
 
 // The version of Python to run with
-var python_version = '3.11'
+var python_version = '3.13'
 
 // The name of the hosting plan, application insights, and function app
 var functionAppName = appName
@@ -45,18 +45,18 @@ var applicationInsightsName = appName
 resource uami 'Microsoft.ManagedIdentity/userAssignedIdentities@2024-11-30' existing = {
   name: 'uami${suffix}'
 }
-resource storageAccount 'Microsoft.Storage/storageAccounts@2025-01-01' existing = {
+resource storageAccount 'Microsoft.Storage/storageAccounts@2025-06-01' existing = {
   name: storage_account_name
 }
-resource defBlobServices 'Microsoft.Storage/storageAccounts/blobServices@2025-01-01' existing = {
+resource defBlobServices 'Microsoft.Storage/storageAccounts/blobServices@2025-06-01' existing = {
   parent: storageAccount
   name: 'default'
 }
-resource packageContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' existing = {
+resource packageContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-06-01' existing = {
   parent: defBlobServices
   name: package_container_name
 }
-resource pythonContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-01-01' existing = if (!use_shared_keys) {
+resource pythonContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-06-01' existing = {
   parent: defBlobServices
   name: python_container_name
 }
@@ -71,12 +71,16 @@ resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleA
 }
 
 // Create a hosting plan for the function app
+// Using Flex Consumption plan for serverless hosting with enhanced features
+// Reference: https://learn.microsoft.com/en-us/azure/azure-functions/flex-consumption-plan
+// Linux Consumption (Y1) supports no Python newer than 3.12 and is retiring on
+// 30 September 2028, so it cannot host this app.
 resource hostingPlan 'Microsoft.Web/serverfarms@2024-11-01' = {
   name: hostingPlanName
   location: location
   sku: {
-    name: 'Y1'
-    tier: 'Dynamic'
+    name: 'FC1'
+    tier: 'FlexConsumption'
   }
   properties: {
     reserved: true
@@ -95,18 +99,12 @@ resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {
 }
 
 // Construct the app settings
+// On Flex Consumption the runtime name/version and the extension version are
+// set via functionAppConfig, not app settings.
 var common_settings = [
-  {
-    name: 'FUNCTIONS_EXTENSION_VERSION'
-    value: '~4'
-  }
   {
     name: 'APPINSIGHTS_INSTRUMENTATIONKEY'
     value: applicationInsights.properties.InstrumentationKey
-  }
-  {
-    name: 'FUNCTIONS_WORKER_RUNTIME'
-    value: 'python'
   }
   // Pass the blob container name to the function app - this is the
   // container which is monitored for new packages.
@@ -127,27 +125,21 @@ var common_settings = [
 ]
 // Construct the application settings
 // If using shared keys, include the shared key settings. Otherwise, include the managed identity settings.
+var storage_connection_string = 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+
 var app_settings = use_shared_keys ? concat(common_settings, [
   {
     name: 'AzureWebJobsStorage'
-    value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
+    value: storage_connection_string
   }
   {
-    name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
-    value: 'DefaultEndpointsProtocol=https;AccountName=${storageAccount.name};EndpointSuffix=${environment().suffixes.storage};AccountKey=${storageAccount.listKeys().keys[0].value}'
-  }
-  {
-    name: 'WEBSITE_CONTENTSHARE'
-    value: toLower(functionAppName)
+    name: 'DEPLOYMENT_STORAGE_CONNECTION_STRING'
+    value: storage_connection_string
   }
 ]) : concat(common_settings, [
   {
     name: 'AzureWebJobsStorage__accountName'
     value: storageAccount.name
-  }
-  {
-    name: 'WEBSITE_RUN_FROM_PACKAGE'
-    value: 'https://${storageAccount.name}.blob.${environment().suffixes.storage}/${pythonContainer.name}/function_app.zip'
   }
   // Pass the container URL to the function app for the `from_container_url` call.
   {
@@ -155,6 +147,39 @@ var app_settings = use_shared_keys ? concat(common_settings, [
     value: 'https://${storageAccount.name}.blob.${environment().suffixes.storage}/${packageContainer.name}/'
   }
 ])
+
+var function_runtime = {
+  name: 'python'
+  version: python_version
+}
+
+var deployment_storage_value = 'https://${storageAccount.name}.blob.${environment().suffixes.storage}/${pythonContainer.name}'
+
+var deployment_authentication = use_shared_keys ? {
+  type: 'StorageAccountConnectionString'
+  storageAccountConnectionStringName: 'DEPLOYMENT_STORAGE_CONNECTION_STRING'
+} : {
+  type: 'SystemAssignedIdentity'
+}
+
+var flex_deployment_configuration = {
+  storage: {
+    type: 'blobContainer'
+    value: deployment_storage_value
+    authentication: deployment_authentication
+  }
+}
+
+var flex_scale_and_concurrency = {
+  maximumInstanceCount: 100
+  instanceMemoryMB: 2048
+}
+
+var function_app_config = {
+  runtime: function_runtime
+  scaleAndConcurrency: flex_scale_and_concurrency
+  deployment: flex_deployment_configuration
+}
 
 // Create the function app.
 resource functionApp 'Microsoft.Web/sites@2024-11-01' = {
@@ -168,13 +193,12 @@ resource functionApp 'Microsoft.Web/sites@2024-11-01' = {
   properties: {
     serverFarmId: hostingPlan.id
     siteConfig: {
-      linuxFxVersion: 'Python|${python_version}'
-      pythonVersion: python_version
       appSettings: app_settings
       ftpsState: 'FtpsOnly'
       minTlsVersion: '1.2'
     }
     httpsOnly: true
+    functionAppConfig: function_app_config
   }
 }
 

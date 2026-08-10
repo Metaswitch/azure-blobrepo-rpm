@@ -35,6 +35,15 @@ def main() -> None:
         help="Unique suffix for the repository name. If not provided, a random suffix will be generated. Must be 14 characters or fewer.",
     )
     parser.add_argument(
+        "--no-shared-keys",
+        action="store_true",
+        help="Use managed identities for accessing storage containers instead of shared access keys.",
+    )
+    parser.add_argument(
+        "--subscription",
+        help="The subscription to create resources in. If not provided, the active 'az' subscription is used.",
+    )
+    parser.add_argument(
         "--upload-directory",
         default="upload",
         help="Path within the storage container to upload packages to.",
@@ -52,7 +61,7 @@ def main() -> None:
         raise ValueError("Suffix must be 14 characters or fewer.")
 
     # Create the resource group
-    create_rg(args.resource_group, args.location)
+    create_rg(args.resource_group, args.location, subscription=args.subscription)
 
     # Ensure requirements.txt exists
     extract_requirements(Path("requirements.txt"))
@@ -65,7 +74,7 @@ def main() -> None:
         common_parameters["suffix"] = args.suffix
 
     initial_parameters = {
-        "use_shared_keys": False,
+        "use_shared_keys": not args.no_shared_keys,
         "repo_type": args.repo_type,
         "upload_directory": args.upload_directory,
     }
@@ -80,6 +89,7 @@ def main() -> None:
         template_file=Path("rg.bicep"),
         parameters=initial_parameters,
         description="initial resources",
+        subscription=args.subscription,
     )
     initial_resources.create()
 
@@ -88,22 +98,13 @@ def main() -> None:
     base_url = outputs["base_url"]
     function_app_name = outputs["function_app_name"]
     package_container = outputs["package_container"]
-    python_container = outputs["python_container"]
     storage_account = outputs["storage_account"]
 
-    # Create the function app
-    funcapp_parameters = {
-        "repo_type": args.repo_type,
-        "upload_directory": args.upload_directory,
-    }
-    funcapp_parameters.update(common_parameters)
-
+    # Publish the function app code. The app itself is created by rg.bicep.
     funcapp = FuncAppBundle(
         name=function_app_name,
         resource_group=args.resource_group,
-        storage_account=storage_account,
-        python_container=python_container,
-        parameters=funcapp_parameters,
+        subscription=args.subscription,
     )
 
     with funcapp as cm:
@@ -118,6 +119,7 @@ def main() -> None:
         template_file=Path("rg_add_eventgrid.bicep"),
         parameters=common_parameters,
         description="Event Grid trigger configuration",
+        subscription=args.subscription,
     )
     event_grid_deployment.create()
 

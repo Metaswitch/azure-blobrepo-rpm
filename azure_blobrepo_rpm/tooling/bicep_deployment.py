@@ -4,7 +4,7 @@
 
 import logging
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any
 
 from azure_blobrepo_rpm.tooling.azcmd import AzCmdJson, AzCmdNone
 
@@ -20,14 +20,16 @@ class BicepDeployment:
         deployment_name: str,
         resource_group_name: str,
         template_file: Path,
-        parameters: Dict[str, Any],
+        parameters: dict[str, Any],
         description: str,
+        subscription: str | None = None,
     ) -> None:
         """Create a BicepDeployment object."""
         self.deployment_name = deployment_name
         self.resource_group_name = resource_group_name
         self.template_file = template_file
         self.description = description
+        self.subscription = subscription
 
         # Convert the set of parameters to a list of flags
         self.parameters = []
@@ -49,7 +51,8 @@ class BicepDeployment:
                 "--template-file",
                 str(self.template_file),
                 *self.parameters,
-            ]
+            ],
+            subscription=self.subscription,
         )
         log.info(
             "Deploying: %s (in resource group: %s)",
@@ -59,7 +62,7 @@ class BicepDeployment:
         cmd.run()
         log.info("Finished deploying %s", self.description)
 
-    def outputs(self) -> Dict[str, Any]:
+    def outputs(self) -> dict[str, Any]:
         """Get the outputs of the deployment."""
         cmd = AzCmdJson(
             [
@@ -73,7 +76,8 @@ class BicepDeployment:
                 self.resource_group_name,
                 "--query",
                 "properties.outputs",
-            ]
+            ],
+            subscription=self.subscription,
         )
         data = cmd.run_expect_dict()
 
