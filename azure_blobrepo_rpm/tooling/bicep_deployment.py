@@ -22,12 +22,14 @@ class BicepDeployment:
         template_file: Path,
         parameters: dict[str, Any],
         description: str,
+        subscription: str | None = None,
     ) -> None:
         """Create a BicepDeployment object."""
         self.deployment_name = deployment_name
         self.resource_group_name = resource_group_name
         self.template_file = template_file
         self.description = description
+        self.subscription = subscription
 
         # Convert the set of parameters to a list of flags
         self.parameters = []
@@ -49,7 +51,8 @@ class BicepDeployment:
                 "--template-file",
                 str(self.template_file),
                 *self.parameters,
-            ]
+            ],
+            subscription=self.subscription,
         )
         log.info(
             "Deploying: %s (in resource group: %s)",
@@ -73,7 +76,8 @@ class BicepDeployment:
                 self.resource_group_name,
                 "--query",
                 "properties.outputs",
-            ]
+            ],
+            subscription=self.subscription,
         )
         data = cmd.run_expect_dict()
 

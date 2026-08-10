@@ -16,9 +16,11 @@ class AzCmd:
 
     OUTPUT: str
 
-    def __init__(self, cmd: list[str]) -> None:
+    def __init__(self, cmd: list[str], subscription: str | None = None) -> None:
         """Create an AzCmd object"""
         self.cmd = cmd
+        if subscription:
+            self.cmd = [*cmd, "--subscription", subscription]
 
     def _run_cmd(self, cmd: list[str]) -> Any:  # noqa: ANN401
         """Runs a command and may return output"""

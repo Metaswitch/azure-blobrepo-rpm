@@ -69,7 +69,7 @@ resource packageContainer 'Microsoft.Storage/storageAccounts/blobServices/contai
   properties: {
   }
 }
-resource pythonContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-06-01' = if (!use_shared_keys) {
+resource pythonContainer 'Microsoft.Storage/storageAccounts/blobServices/containers@2025-06-01' = {
   parent: defBlobServices
   name: python_container_name
   properties: {
@@ -92,8 +92,8 @@ resource storageBlobDataContributorRoleAssignment 'Microsoft.Authorization/roleA
   }
 }
 
-// Create the function app directly, if shared key support is enabled
-module funcapp 'rg_funcapp.bicep' = if (use_shared_keys) {
+// Create the function app directly
+module funcapp 'rg_funcapp.bicep' = {
   name: 'rpmfunc${suffix}'
   params: {
     appName: appName
@@ -102,7 +102,7 @@ module funcapp 'rg_funcapp.bicep' = if (use_shared_keys) {
     storage_account_name: storageAccount.name
     suffix: suffix
     upload_directory: upload_directory
-    use_shared_keys: true
+    use_shared_keys: use_shared_keys
   }
 }
 
@@ -110,4 +110,4 @@ output base_url string = 'https://${storageAccount.name}.blob.${environment().su
 output function_app_name string = appName
 output storage_account string = storageAccount.name
 output package_container string = packageContainer.name
-output python_container string = use_shared_keys ? '' : pythonContainer.name
+output python_container string = pythonContainer.name

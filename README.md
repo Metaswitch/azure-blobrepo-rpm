@@ -3,7 +3,7 @@
 Functionality to create an RPM package repository in Azure Blob Storage with
 an Azure Function App to keep it up to date.
 
-For use with [microsoft/dnf-plugin-azure-auth](https://github.com/microsoft/dnf-plugin-azure-auth).
+For use with [Metaswitch/dnf-plugin-azure-auth](https://github.com/Metaswitch/dnf-plugin-azure-auth).
 
 # Getting Started
 
@@ -18,9 +18,6 @@ For use with [microsoft/dnf-plugin-azure-auth](https://github.com/microsoft/dnf-
     to install `poetry-plugin-export`.
 - Azure CLI
   - Installation instructions available at https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-
-- Docker
-  - Installation instructions available at https://docs.docker.com/engine/install/
 
 ## Basic usage
 
@@ -47,6 +44,17 @@ overridden by passing the `--location` parameter:
 ```bash
 poetry run create-resources --location uksouth <resource_group_name>
 ```
+
+Resources are created in the active `az` subscription. To target a different
+one, pass `--subscription`:
+
+```bash
+poetry run create-resources --subscription <subscription> <resource_group_name>
+```
+
+The function app runs on a Flex Consumption plan, and its code is published
+with an Azure AD token via the "One Deploy" endpoint, so only the Azure CLI is
+required - no Docker or Azure Functions Core Tools.
 
 ## Installing the `dnf` plugin and downloading packages
 
@@ -128,7 +136,7 @@ To install packages from your new repository:
 ### For all repository types
 
 - Install `dnf-plugin-azure-auth`.
-  - Install the plugin from https://github.com/microsoft/dnf-plugin-azure-auth
+  - Install the plugin from https://github.com/Metaswitch/dnf-plugin-azure-auth
 
 - Now, use yum/dnf as normal! The plugin will authenticate using the `az` cli
   tool to generate credentials for the repository.

@@ -20,7 +20,7 @@ in that container and regenerate the repository.
 
 To download packages:
   - Install `dnf-plugin-azure-auth`.
-    - Install the plugin from https://github.com/microsoft/dnf-plugin-azure-auth
+    - Install the plugin from https://github.com/Metaswitch/dnf-plugin-azure-auth
 
   - Create a repository file `/etc/yum.repos.d/{storage_account}.repo` with the following content
     for each distribution you want to support:
@@ -86,7 +86,7 @@ in that container and regenerate the repository.
 
 To download packages:
   - Install `dnf-plugin-azure-auth`.
-    - Install the plugin from https://github.com/microsoft/dnf-plugin-azure-auth
+    - Install the plugin from https://github.com/Metaswitch/dnf-plugin-azure-auth
 
   - Create a repository file `/etc/yum.repos.d/{storage_account}.repo` with the following content:
 
