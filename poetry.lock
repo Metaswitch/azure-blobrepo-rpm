@@ -469,21 +469,22 @@ files = [
 
 [[package]]
 name = "createrepo-c"
-version = "1.2.4.post1"
+version = "1.2.5"
 description = "C implementation of createrepo"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "createrepo_c-1.2.4.post1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:8c2c9f17e3c202124193678e963d72f789e3741f5ee7fa772794f6a88b02c2fd"},
-    {file = "createrepo_c-1.2.4.post1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:61ac864faa18e95645f6b0a09bac39cc0e6dd1eab41821d59223ab7c0a016889"},
-    {file = "createrepo_c-1.2.4.post1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:9b0df0b6bf3f97406c70d22f5c2d5a9ec472f46946890edfbd51a3fa0511869c"},
-    {file = "createrepo_c-1.2.4.post1-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:96d29e719de6c09e7ce005bf84731cec4dbcf94c15d57bfbecf1a82233a9ae3a"},
-    {file = "createrepo_c-1.2.4.post1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:cd4f5f15ec36425e84e23b24c53e80c4300e276659c0ef15b58dba3aa875059d"},
-    {file = "createrepo_c-1.2.4.post1-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:365dfb95a9e4c5d762bb677a7ac228c3eec591f5cc44f51346ac7ff37eee3dc9"},
-    {file = "createrepo_c-1.2.4.post1-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:e8757ccbf7fd060692c2326a7b49a99b4771246e674c8887763c8361b61f27c8"},
-    {file = "createrepo_c-1.2.4.post1-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:1fd6ddee226539f925c62315688a84a66f05f2862f9b9e650976b70a78606215"},
-    {file = "createrepo_c-1.2.4.post1.tar.gz", hash = "sha256:81c567271575dc387d220e367d3a7116536ceeaedab0edc2221b0c766ab3e617"},
+    {file = "createrepo_c-1.2.5-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:d1ee12d9cc9d120fad29892acf48641e3f269f03405001489ca1beb8716b5792"},
+    {file = "createrepo_c-1.2.5-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:37e57ffcafdebceaeff6cc37791dfb5efa942955a4a9ed38695d61fd0e3cac33"},
+    {file = "createrepo_c-1.2.5-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:2cf1d3cc0c3e0ec25967ecb78ca50e653d7372ff554e72ce852a3ef9450d3d99"},
+    {file = "createrepo_c-1.2.5-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:d9b5b2bdad42ec120d0af625e14fd0a003c95e6afdec7c8d267df2ac876d471f"},
+    {file = "createrepo_c-1.2.5-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:946d6544a04bd57239db870ab5bc356e05dacee87438639d4896450e10218374"},
+    {file = "createrepo_c-1.2.5-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:b3709bef27b0e612564d9fdc65923e415a7fd58ba47b4672cff2a3468aa0d3e2"},
+    {file = "createrepo_c-1.2.5-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:b6ae96a113e60d70769c14ed541bb6a4b1e7780eef586a35e7695ee861695b8e"},
+    {file = "createrepo_c-1.2.5-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:4d26ae3071840acf99cca7a7d0d0c2ff59cb088d979c848aa4713ced0145263d"},
+    {file = "createrepo_c-1.2.5-cp315-cp315-manylinux_2_28_aarch64.whl", hash = "sha256:2b405547485b12e455c03512daaad83f130c903810f3e67b3c2811547c0f39b5"},
+    {file = "createrepo_c-1.2.5-cp315-cp315-manylinux_2_28_x86_64.whl", hash = "sha256:2e5fc19ee4c8544c0edbe883f8c6a3f3068d490eb3be71cb1f4990385cd51598"},
 ]
 
 [[package]]
