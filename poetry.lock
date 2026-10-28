@@ -469,22 +469,23 @@ files = [
 
 [[package]]
 name = "createrepo-c"
-version = "1.2.5"
+version = "1.2.6"
 description = "C implementation of createrepo"
 optional = false
 python-versions = "*"
 groups = ["main"]
 files = [
-    {file = "createrepo_c-1.2.5-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:d1ee12d9cc9d120fad29892acf48641e3f269f03405001489ca1beb8716b5792"},
-    {file = "createrepo_c-1.2.5-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:37e57ffcafdebceaeff6cc37791dfb5efa942955a4a9ed38695d61fd0e3cac33"},
-    {file = "createrepo_c-1.2.5-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:2cf1d3cc0c3e0ec25967ecb78ca50e653d7372ff554e72ce852a3ef9450d3d99"},
-    {file = "createrepo_c-1.2.5-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:d9b5b2bdad42ec120d0af625e14fd0a003c95e6afdec7c8d267df2ac876d471f"},
-    {file = "createrepo_c-1.2.5-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:946d6544a04bd57239db870ab5bc356e05dacee87438639d4896450e10218374"},
-    {file = "createrepo_c-1.2.5-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:b3709bef27b0e612564d9fdc65923e415a7fd58ba47b4672cff2a3468aa0d3e2"},
-    {file = "createrepo_c-1.2.5-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:b6ae96a113e60d70769c14ed541bb6a4b1e7780eef586a35e7695ee861695b8e"},
-    {file = "createrepo_c-1.2.5-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:4d26ae3071840acf99cca7a7d0d0c2ff59cb088d979c848aa4713ced0145263d"},
-    {file = "createrepo_c-1.2.5-cp315-cp315-manylinux_2_28_aarch64.whl", hash = "sha256:2b405547485b12e455c03512daaad83f130c903810f3e67b3c2811547c0f39b5"},
-    {file = "createrepo_c-1.2.5-cp315-cp315-manylinux_2_28_x86_64.whl", hash = "sha256:2e5fc19ee4c8544c0edbe883f8c6a3f3068d490eb3be71cb1f4990385cd51598"},
+    {file = "createrepo_c-1.2.6-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:8367b8133f71eef6f40b1fd2b8e439a5b6b072b63fa05cb538b249e35932c70a"},
+    {file = "createrepo_c-1.2.6-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:d5e09f9f78370304e185dedae5e366542d2f89f890a2b9ec1e0ddaf6cd5ae3a8"},
+    {file = "createrepo_c-1.2.6-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:e546fc15021537e10e3561f7a9ef002c2d97ad8d63be30eeb1c0722a490895b6"},
+    {file = "createrepo_c-1.2.6-cp312-cp312-manylinux_2_28_x86_64.whl", hash = "sha256:340f70ebf2c19f20c05c60fa2c8abdf05db5443278e4a4b5dbdfe4543df8adf4"},
+    {file = "createrepo_c-1.2.6-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:308d153f964c19eda0b62daa3db48e48e461696bb2c1bea712313b9d17ec58cb"},
+    {file = "createrepo_c-1.2.6-cp313-cp313-manylinux_2_28_x86_64.whl", hash = "sha256:aade313fa27fffd261fc31212d44f0c07aceb7b0b385c6cff0d178a7e937ee71"},
+    {file = "createrepo_c-1.2.6-cp314-cp314-manylinux_2_28_aarch64.whl", hash = "sha256:89b1db13f377ff9693ac385ad1272fc75c069730580f1508593ed9cdb041ae2a"},
+    {file = "createrepo_c-1.2.6-cp314-cp314-manylinux_2_28_x86_64.whl", hash = "sha256:10be4a8f43addef87e03fe8f74d12a372c3dc5221e0b1143e625b496ef23bdf2"},
+    {file = "createrepo_c-1.2.6-cp315-cp315-manylinux_2_28_aarch64.whl", hash = "sha256:f8213ebf028740143bb756395f5e18e829295c90d77dac56cc9b82c19c4a51d7"},
+    {file = "createrepo_c-1.2.6-cp315-cp315-manylinux_2_28_x86_64.whl", hash = "sha256:980c39ca71476501d0a52ab7eb2cb48767b6343de713c7671c7da07d6239c75f"},
+    {file = "createrepo_c-1.2.6.tar.gz", hash = "sha256:81962c59ef7b1d0f278724589f56e7ee3b3b7951458e75089d8b7d686acd0d4a"},
 ]
 
 [[package]]
@@ -1128,25 +1129,25 @@ crypto = ["cryptography (>=3.4.0)"]
 
 [[package]]
 name = "pytest"
-version = "9.1.1"
+version = "9.2.0"
 description = "pytest: simple powerful testing with Python"
 optional = false
 python-versions = ">=3.10"
 groups = ["dev"]
 files = [
-    {file = "pytest-9.1.1-py3-none-any.whl", hash = "sha256:37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c"},
-    {file = "pytest-9.1.1.tar.gz", hash = "sha256:1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313"},
+    {file = "pytest-9.2.0-py3-none-any.whl", hash = "sha256:07acdcf88ec174f907dc01af70bf52d49b014bbab03faeeade31c96b18c2e588"},
+    {file = "pytest-9.2.0.tar.gz", hash = "sha256:97c4f3b1f3c7414aa36465e09b8220f1d03627993bd51b1282e193753c80557b"},
 ]
 
 [package.dependencies]
 colorama = {version = ">=0.4", markers = "sys_platform == \"win32\""}
-iniconfig = ">=1.0.1"
-packaging = ">=22"
-pluggy = ">=1.5,<2"
-pygments = ">=2.7.2"
+iniconfig = ">=2"
+packaging = ">=24"
+pluggy = ">=1.6,<2"
+pygments = ">=2.15"
 
 [package.extras]
-dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "requests", "setuptools", "xmlschema"]
+dev = ["argcomplete", "asynctest ; python_version < \"3.11\"", "attrs (>=23.1)", "coverage (>=7.5)", "hypothesis (>=6.75)", "mock", "numpy (>=1.26)", "pexpect (>=4.9)", "pytest-xdist (>=3.5)", "pyyaml", "requests", "setuptools", "xmlschema"]
 
 [[package]]
 name = "requests"
@@ -1376,4 +1377,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "b970fb657a01b5f0e274d5b799894d6d34e79e0190299643d5178ef6f0631e1c"
+content-hash = "853b98c8b868ffabc115bd40e7d6c3525082b50e3e0b06b31574aad23b823ffc"
