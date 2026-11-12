@@ -89,14 +89,14 @@ tracing = ["opentelemetry-api (>=1.26,<2.0)"]
 
 [[package]]
 name = "azure-functions"
-version = "2.3.0"
+version = "2.4.0"
 description = "Python library for Azure Functions."
 optional = false
 python-versions = ">=3.13"
 groups = ["main"]
 files = [
-    {file = "azure_functions-2.3.0-py3-none-any.whl", hash = "sha256:9eb166cd83875dd88996c5f23a46f8edbbc78c0f9c41926bfdf960be54b6c889"},
-    {file = "azure_functions-2.3.0.tar.gz", hash = "sha256:32136bae3285680edd2b2d1786c37d381a9ba4c23332dcd590e354190dbe6c9a"},
+    {file = "azure_functions-2.4.0-py3-none-any.whl", hash = "sha256:c1f69edce150af18bcbf4cd6eab224506335a7bfd225a5269a54df27c115aa12"},
+    {file = "azure_functions-2.4.0.tar.gz", hash = "sha256:4b764002c787b860dbee0c8ec02f795bdd2ca0384f8b3860da8369403ee19b01"},
 ]
 
 [package.dependencies]
@@ -1377,4 +1377,4 @@ cffi = ["cffi (>=1.17,<2.0) ; platform_python_implementation != \"PyPy\" and pyt
 [metadata]
 lock-version = "2.1"
 python-versions = "^3.13"
-content-hash = "72607eb6f623dd48897d82b05d8c60436742e2db8ffbaf08a953e9a2548d3b46"
+content-hash = "1dea52409a6b3cad938d1c40dd508a5b9fcafc173b1013c246e7626f3635d06f"
